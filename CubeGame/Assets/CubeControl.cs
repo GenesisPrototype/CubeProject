@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeControl : MonoBehaviour
+
 {
+    Rigidbody ourRigidbody;
+
     private float turningSpeed = 180;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ourRigidbody = GetComponent<Rigidbody>();  
     }
 
     // Update is called once per frame
@@ -34,5 +37,16 @@ public class CubeControl : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         transform.position -= transform.forward* Time.deltaTime;
 
+
+        //  if (Input.GetKeyDown(KeyCode.LeftArrow)) 
+            ourRigidbody.AddExplosionForce(1000,transform.position+Vector3.down);
+
+
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        collision.transform.position += Vector3.down;
     }
 }
